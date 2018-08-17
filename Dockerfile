@@ -1,4 +1,4 @@
-FROM redis
+FROM redis:4.0.11
 
 RUN apt-get update --fix-missing && \
     apt-get install -y stunnel python-pip && \
