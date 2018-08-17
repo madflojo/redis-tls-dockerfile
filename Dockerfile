@@ -9,4 +9,4 @@ ADD stunnel.conf /stunnel.conf
 ADD Procfile /Procfile
 
 WORKDIR /
-CMD honcho start
+CMD PYTHONUNBUFFERED=1 honcho start
