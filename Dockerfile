@@ -1,8 +1,8 @@
-FROM redis:5-alpine
+FROM redis:6-alpine
 
 RUN apk add --no-cache \
-    stunnel~=5.48 \
-    python3~=3.7 \
+    stunnel \
+    python3 \
     && pip3 install honcho==1.0.*
 
 WORKDIR /
