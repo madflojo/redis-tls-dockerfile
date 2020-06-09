@@ -2,11 +2,13 @@ FROM redis:6-alpine
 
 RUN apk add --no-cache \
     stunnel \
-    python3 \
-    && pip3 install honcho==1.0.*
+    python3
+
+RUN python3 -m pip install honcho==1.0.*
 
 WORKDIR /
-COPY stunnel.conf Procfile /
+COPY stunnel.conf ProcfileWithoutPwd ProcfileWithPwd start.sh /
+RUN chmod +x start.sh
 
 ENV PYTHONUNBUFFERED=1
-CMD ["honcho", "start"]
+CMD ["sh", "start.sh"]
