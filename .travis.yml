@@ -1,0 +1,19 @@
+language: bash
+
+services:
+  - docker
+
+hosts:
+  - example.com
+
+install:
+  - docker build -t redis-tls .
+  - mkdir certs
+  - docker run -v certs:/certs stakater/ssl-certs-generator:1.0
+  - docker run -d -p 127.0.0.1:6379:6379 -v certs:/certs --name redis-tls -e REDIS_PASS="redis" redis-tls
+
+script:
+  - docker ps | grep -q redis-tls
+
+after_script:
+  - docker logs redis-tls
