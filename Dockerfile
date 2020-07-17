@@ -1,4 +1,4 @@
-FROM redis:6-alpine
+FROM redis:6.0.5-alpine
 
 RUN apk add --no-cache \
     stunnel \
