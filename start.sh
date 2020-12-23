@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ -z "$REDIS_PASS" ]
+if [ ! -z "$REDIS_PASS" ]
 then
-    honcho start -f ProcfileWithoutPwd
-else 
-    honcho start -f ProcfileWithPwd
+  REDIS_CMD_OPTS=$(echo "$REDIS_CMD_OPTS --requirepass $REDIS_PASS")
 fi
+
+exec honcho start -f Procfile
