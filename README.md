@@ -17,19 +17,23 @@ The `/path/to/certs` should be a directory on the host that contains the appropr
 Require password authentication for Redis:
 
 ```console
-$ docker run -d -p 6379:6379 -v /path/to/certs:/certs --env REDIS_PASS="<<password here>>" --name redis-tls madflojo/redis-tls
+$ docker run -d -p 6379:6379 -v /path/to/certs:/certs --env REDIS_PASS="<<password here>>" \
+  --name redis-tls madflojo/redis-tls
 ```
 
 Additional Options to Redis Start Command:
 
 ```consol
-$ docker run -d -p 6379:6379 -v /path/to/certs:/certs --env REDIS_PASS="<<password here>>" --env REDIS_CMD_OPTS="--appendonly yes"  --name redis-tls madflojo/redis-tls
+$ docker run -d -p 6379:6379 -v /path/to/certs:/certs --env REDIS_PASS="<<password here>>" \
+  --env REDIS_CMD_OPTS="--appendonly yes"  --name redis-tls madflojo/redis-tls
 ```
 
 Start with Persistence:
 
 ```console
-$ docker run --restart=always -d -p 6379:6379 -v /path/to/certs:/certs -v /hostpath/to/redisdatabackup:/data --env REDIS_PASS="<<password here>>" --name redis-tls madflojo/redis-tls
+$ docker run --restart=always -d -p 6379:6379 -v /path/to/certs:/certs \ 
+  -v /hostpath/to/redisdatabackup:/data --env REDIS_PASS="<<password here>>" \ 
+  --name redis-tls madflojo/redis-tls
 ```
 
 ## Contributing
