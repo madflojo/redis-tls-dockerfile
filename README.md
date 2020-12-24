@@ -1,12 +1,14 @@
 # Redis with TLS Dockerfile
 
-[![Build Status](https://travis-ci.com/madflojo/redis-tls-dockerfile.svg?branch=master)](https://travis-ci.com/madflojo/redis-tls-dockerfile) 
+![Redis Logo](redis-logo.png)
+
+[![Build Status](https://travis-ci.com/madflojo/redis-tls-dockerfile.svg?branch=master)](https://travis-ci.com/madflojo/redis-tls-dockerfile) [![Docker Pulls](https://img.shields.io/docker/pulls/madflojo/redis-tls)](https://hub.docker.com/r/madflojo/redis-tls)
 
 This project produces an Open Source Redis Docker image with TLS support. This project uses the base Open Source Redis docker image and stunnel to create a TLS wrapped Redis instance.
 
 ## Using this Image
 
-Start Redis with TLS:
+**Start Redis with TLS:**
 
 ```console
 $ docker run -d -p 6379:6379 -v /path/to/certs:/certs --name redis-tls madflojo/redis-tls
@@ -14,27 +16,33 @@ $ docker run -d -p 6379:6379 -v /path/to/certs:/certs --name redis-tls madflojo/
 
 The `/path/to/certs` should be a directory on the host that contains the appropriate `cert.pem` and `key.pem` files for `stunnel` to provide TLS encryption.
 
-Require password authentication for Redis:
+**Require password authentication for Redis:**
 
 ```console
 $ docker run -d -p 6379:6379 -v /path/to/certs:/certs --env REDIS_PASS="<<password here>>" \
   --name redis-tls madflojo/redis-tls
 ```
 
-Additional Options to Redis Start Command:
+Use the `$REDIS_PASS` environment variable to require clients to authenticate with this Redis server.
+
+**Additional Options to Redis Start Command:**
 
 ```consol
 $ docker run -d -p 6379:6379 -v /path/to/certs:/certs --env REDIS_PASS="<<password here>>" \
   --env REDIS_CMD_OPTS="--appendonly yes"  --name redis-tls madflojo/redis-tls
 ```
 
-Start with Persistence:
+Use the `$REDIS_CMD_OPTS` environment variable to pass any command-line arguments to the Redis server start command.
+
+**Start with Persistence:**
 
 ```console
 $ docker run --restart=always -d -p 6379:6379 -v /path/to/certs:/certs \ 
   -v /hostpath/to/redisdatabackup:/data --env REDIS_PASS="<<password here>>" \ 
   --name redis-tls madflojo/redis-tls
 ```
+
+To retain data throughout container restarts, use Docker's volume maps to mount the data directory to a host-level directory.
 
 ## Contributing
 
